@@ -1,0 +1,8 @@
+# Ignore everything...
+*
+
+# Except the following files
+!report.py
+!example_output.txt
+!README.md
+!.gitignore
