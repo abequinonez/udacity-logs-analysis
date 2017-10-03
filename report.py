@@ -19,10 +19,18 @@ def get_report(query):
 def print_report(question, report):
     """Prints the report retrieved from the database."""
     print(question)
-    for article in report:
-        # Get the article's title and views
-        title, views = article[0], article[1]
-        print("    \"{}\" — {} views".format(title, views))
+    for listing in report:
+        # Get the listing's title and content
+        title, content = listing[0], listing[1]
+
+        # I learned how to check for a decimal from the following
+        # Stack Overflow discussion:
+        # https://stackoverflow.com/questions/41036535/python-how-to-test-if-a-users-input-is-a-decimal-number
+        if type(content) is int:
+            suffix = " views"
+        else:
+            suffix = "% errors"
+        print("    {} — {}{}".format(title, content, suffix))
 
 # I learned about implicit string concatenation from the following
 # Stack Overflow discussion:
