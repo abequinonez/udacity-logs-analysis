@@ -41,8 +41,23 @@ top_authors = (
     "articles.slug = log.path) AND (log.status = '200 OK') "
     "GROUP BY authors.name ORDER BY views DESC;")
 
+# I built the following SQL query with help from these resources:
+# https://dba.stackexchange.com/questions/63506/merge-two-select-queries-with-different-where-clauses
+# https://stackoverflow.com/questions/1780242/postgres-math-expression-calculcated-for-each-row-in-table
+# https://stackoverflow.com/questions/6133107/extract-date-yyyy-mm-dd-from-a-timestamp-in-postgresql
+error_percentage = (
+    "3. On which days did more than 1% of requests lead to errors?",
+    "SELECT TO_CHAR(first.date, 'FMMonth DD, YYYY') AS date, "
+    "TRUNC((errors / requests::float * 100)::DECIMAL, 2) AS error_percentage "
+    "FROM (SELECT time::DATE as date, COUNT(*) AS errors FROM log "
+    "WHERE status != '200 OK' GROUP BY date ORDER BY date) AS first "
+    "JOIN (SELECT time::DATE as date, COUNT(*) AS requests FROM log "
+    "WHERE status = '200 OK' GROUP BY date ORDER BY date) AS second "
+    "ON first.date = second.date "
+    "WHERE TRUNC((errors / requests::float * 100)::DECIMAL, 2) >= 1;")
+
 # Add the question/query sets to a list.
-query_sets = [top_articles, top_authors]
+query_sets = [top_articles, top_authors, error_percentage]
 
 # Pass each set's data into the appropriate functions.
 for i, query_set in enumerate(query_sets):
