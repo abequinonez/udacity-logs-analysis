@@ -27,14 +27,22 @@ def print_report(question, report):
 # I learned about implicit string concatenation from the following
 # Stack Overflow discussion:
 # https://stackoverflow.com/questions/1874592/how-to-write-very-long-string-that-conforms-with-pep8-and-prevent-e501
-top_articles = ("1. What are the most popular three articles of all time?",
-                "SELECT articles.title, COUNT(*) AS views FROM articles, log "
-                "WHERE ('/article/' || articles.slug = log.path) AND "
-                "(log.status = '200 OK') GROUP BY articles.title "
-                "ORDER BY views DESC LIMIT 3;")
+top_articles = (
+    "1. What are the most popular three articles of all time?",
+    "SELECT articles.title, COUNT(*) AS views FROM articles, log "
+    "WHERE ('/article/' || articles.slug = log.path) AND "
+    "(log.status = '200 OK') GROUP BY articles.title "
+    "ORDER BY views DESC LIMIT 3;")
+
+top_authors = (
+    "2. Who are the most popular article authors of all time?",
+    "SELECT authors.name, COUNT(*) AS views FROM authors, articles, log "
+    "WHERE (authors.id = articles.author) AND ('/article/' || "
+    "articles.slug = log.path) AND (log.status = '200 OK') "
+    "GROUP BY authors.name ORDER BY views DESC;")
 
 # Add the question/query sets to a list.
-query_sets = [top_articles]
+query_sets = [top_articles, top_authors]
 
 # Pass each set's data into the appropriate functions.
 for i, query_set in enumerate(query_sets):
