@@ -1,6 +1,6 @@
 # Udacity Full Stack Logs Analysis Project
 
-This project, a logs reporting tool that answers user activity questions, was developed as part of the Udacity Full Stack Web Developer Nanodegree Program. The reporting tool, written in Python, uses the psycopg2 module to connect to a PostgreSQL database to retrieve information on article readership.
+This project, a logs reporting tool that answers user activity questions, was developed as part of the Udacity Full Stack Web Developer Nanodegree Program. The reporting tool, written in Python, uses the psycopg2 module to connect to a PostgreSQL database to retrieve information on article readership. The database, containing over a million rows, is queried to demonstrate how business conclusions can be drawn from data.
 
 ## Required Software
 
