@@ -55,7 +55,7 @@ top_authors = (
 # https://stackoverflow.com/questions/6133107/extract-date-yyyy-mm-dd-from-a-timestamp-in-postgresql
 error_percentage = (
     "3. On which days did more than 1% of requests lead to errors?",
-    "SELECT TO_CHAR(first.date, 'FMMonth DD, YYYY') AS date, "
+    "SELECT TO_CHAR(first.date, 'FMMonth FMDD, YYYY') AS date, "
     "TRUNC((errors / requests::float * 100)::DECIMAL, 2) AS error_percentage "
     "FROM (SELECT time::DATE AS date, COUNT(*) AS errors FROM log "
     "WHERE status != '200 OK' GROUP BY date ORDER BY date) AS first "
