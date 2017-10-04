@@ -57,11 +57,10 @@ error_percentage = (
     "3. On which days did more than 1% of requests lead to errors?",
     "SELECT TO_CHAR(first.date, 'FMMonth DD, YYYY') AS date, "
     "TRUNC((errors / requests::float * 100)::DECIMAL, 2) AS error_percentage "
-    "FROM (SELECT time::DATE as date, COUNT(*) AS errors FROM log "
+    "FROM (SELECT time::DATE AS date, COUNT(*) AS errors FROM log "
     "WHERE status != '200 OK' GROUP BY date ORDER BY date) AS first "
-    "JOIN (SELECT time::DATE as date, COUNT(*) AS requests FROM log "
-    "WHERE status = '200 OK' GROUP BY date ORDER BY date) AS second "
-    "ON first.date = second.date "
+    "JOIN (SELECT time::DATE AS date, COUNT(*) AS requests FROM log "
+    "GROUP BY date ORDER BY date) AS second ON first.date = second.date "
     "WHERE TRUNC((errors / requests::float * 100)::DECIMAL, 2) >= 1;")
 
 # Add the question/query sets to a list.
