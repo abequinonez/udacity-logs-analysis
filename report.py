@@ -38,16 +38,14 @@ def print_report(question, report):
 top_articles = (
     "1. What are the most popular three articles of all time?",
     "SELECT articles.title, COUNT(*) AS views FROM articles, log "
-    "WHERE ('/article/' || articles.slug = log.path) AND "
-    "(log.status = '200 OK') GROUP BY articles.title "
-    "ORDER BY views DESC LIMIT 3;")
+    "WHERE ('/article/' || articles.slug = log.path) "
+    "GROUP BY articles.title ORDER BY views DESC LIMIT 3;")
 
 top_authors = (
     "2. Who are the most popular article authors of all time?",
     "SELECT authors.name, COUNT(*) AS views FROM authors, articles, log "
     "WHERE (authors.id = articles.author) AND ('/article/' || "
-    "articles.slug = log.path) AND (log.status = '200 OK') "
-    "GROUP BY authors.name ORDER BY views DESC;")
+    "articles.slug = log.path) GROUP BY authors.name ORDER BY views DESC;")
 
 # I built the following SQL query with help from these resources:
 # https://dba.stackexchange.com/questions/63506/merge-two-select-queries-with-different-where-clauses
